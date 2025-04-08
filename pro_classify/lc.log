@@ -1,0 +1,3 @@
+2025-04-08T13:10:40.948+08:00  INFO 27184 --- [main] c.x.p.ProClassifyApplicationTests        : Starting ProClassifyApplicationTests using Java 17.0.4 with PID 27184 (started by KamikazE in D:\IdeaProjects\litter_classify\pro_classify)
+2025-04-08T13:10:40.950+08:00  INFO 27184 --- [main] c.x.p.ProClassifyApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2025-04-08T13:10:42.415+08:00  INFO 27184 --- [main] c.x.p.ProClassifyApplicationTests        : Started ProClassifyApplicationTests in 1.664 seconds (process running for 2.192)

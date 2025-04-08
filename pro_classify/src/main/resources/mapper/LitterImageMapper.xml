@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinghuo.pro_classify.mapper.LitterImageMapper">
+    <insert id="saveLitterImage" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        t_litter_image(content_type, url, predicted_label, feedback_label)
+        values(#{literImage.contentType}, #{literImage.url}, #{literImage.predictedLabel}, #{literImage.feedbackLabel})
+    </insert>
+    <update id="updateLitterImage">
+        update
+        t_litter_image
+        <set>
+            <if test="litterImage.contentType != null and litterImage.contentType != '' ">
+                content_type=#{litterImage.contentType},
+            </if>
+            <if test="litterImage.url != null and litterImage.url != '' ">
+                url=#{litterImage.url},
+            </if>
+            <if test="litterImage.predictedLabel != null and litterImage.predictedLabel != '' ">
+                predicted_label = #{litterImage.predictedLabel},
+            </if>
+            <if test="litterImage.feedbackLabel != null and litterImage.feedbackLabel != '' ">
+                feedback_label = #{litterImage.feedbackLabel},
+            </if>
+        </set>
+        where id=#{litterImage.id}
+    </update>
+    <delete id="deleteLitterImageById">
+        delete from
+        t_litter_image
+        where id=#{id}
+    </delete>
+
+    <select id="getLitterImageById" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
+        select id, content_type, url, predicted_label, feedback_label
+        from t_litter_image
+        where id=#{id}
+    </select>
+    <select id="getLitterImageList" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
+        select id, content_type, url, predicted_label, feedback_label
+        from t_litter_image
+    </select>
+</mapper>

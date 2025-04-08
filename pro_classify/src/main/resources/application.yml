@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: pro_classify
+  datasource:
+    name: litter_classify
+    url: jdbc:mysql://localhost:3306/litter_classify
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
+mybatis:
+  mapper-locations: classpath:mapper/**.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    lazy-loading-enabled: true
+
+logging:
+  level:
+    com:
+      xinghuo:
+        pro_classify:
+          mapper: debug
+  file:
+    name: lc.log
+    path: /log
+server:
+  port: 8080
+
+minio:
+  endpoint: http://192.168.230.101:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket-name: litter
