@@ -27,7 +27,7 @@ public class Result<T> {
     }
 
     public static <T> Result<T> ok() {
-        return new Result<T>(ResultCodeEnum.SUCCESS, null);
+        return new Result<>(ResultCodeEnum.SUCCESS, null);
     }
 
     public static <T> Result<T> ok(T data) {
@@ -35,11 +35,11 @@ public class Result<T> {
     }
 
     public static <T> Result<T> fail(Integer code, String msg) {
-        return new Result<T>(code, msg, null);
+        return new Result<>(code, msg, null);
     }
 
     public static <T> Result<T> fail(Integer code, String msg, T data) {
-        return new Result<T>(code, msg, data);
+        return new Result<>(code, msg, data);
     }
 
     public static <T> Result<T> fail(BizExceptionEnum bizExceptionEnum) {

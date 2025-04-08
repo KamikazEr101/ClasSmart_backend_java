@@ -35,7 +35,7 @@ minio:
   secret-key: minioadmin
   bucket-name: litter
 
-# springdoc-openapi????
+# springdoc-openapi项目配置
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
