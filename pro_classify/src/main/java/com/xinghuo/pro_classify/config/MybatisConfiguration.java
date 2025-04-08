@@ -7,17 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Mybatis管理类
+ */
 @Configuration
 @MapperScan(basePackages = "com.xinghuo.pro_classify.mapper")
 public class MybatisConfiguration {
-    @Autowired
-    private MinioProperties properties;
 
-    @Bean
-    public MinioClient minioClient() {
-        return MinioClient.builder()
-                .endpoint(properties.getEndPoint())
-                .credentials(properties.getAccessKey(),properties.getSecretKey()).
-                build();
-    }
 }

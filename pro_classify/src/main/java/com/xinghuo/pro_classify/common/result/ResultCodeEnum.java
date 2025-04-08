@@ -2,6 +2,9 @@ package com.xinghuo.pro_classify.common.result;
 
 import lombok.Getter;
 
+/**
+ * HTTP响应码与响应信息组合枚举
+ */
 @Getter
 public enum ResultCodeEnum {
     SUCCESS(200, "success"),

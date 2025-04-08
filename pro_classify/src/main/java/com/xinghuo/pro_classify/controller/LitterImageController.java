@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * 垃圾分类管理Controller层
+ */
 @Tag(name = "垃圾分类管理", description = "垃圾图片分类与反馈")
 @Slf4j
 @RestController

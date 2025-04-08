@@ -2,6 +2,9 @@ package com.xinghuo.pro_classify.exception;
 
 import lombok.Getter;
 
+/**
+ * 业务异常类
+ */
 @Getter
 public class BizException extends RuntimeException {
     private final Integer code;

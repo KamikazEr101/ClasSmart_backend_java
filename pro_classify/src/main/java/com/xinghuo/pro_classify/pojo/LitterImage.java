@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 垃圾实体类
+ */
 @Schema(description = "垃圾实体类")
 @Data
 public class LitterImage implements Serializable {

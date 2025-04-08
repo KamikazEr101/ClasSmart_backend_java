@@ -4,7 +4,11 @@ import com.xinghuo.pro_classify.exception.BizExceptionEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@Schema(description = "相应结果对象")
+/**
+ * HTTP响应结果对象
+ * @param <T>
+ */
+@Schema(description = "HTTP响应结果对象")
 @Data
 public class Result<T> {
     @Schema(description = "相应状态码")

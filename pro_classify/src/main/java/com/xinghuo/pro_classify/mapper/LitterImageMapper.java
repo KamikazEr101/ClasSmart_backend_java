@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 垃圾图像Mapper层
+ */
 public interface LitterImageMapper {
     public LitterImage getLitterImageById(@Param("id") Long id);
     public List<LitterImage> getLitterImageList();

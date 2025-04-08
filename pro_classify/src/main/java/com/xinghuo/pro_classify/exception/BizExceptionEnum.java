@@ -2,6 +2,9 @@ package com.xinghuo.pro_classify.exception;
 
 import lombok.Getter;
 
+/**
+ * 业务异常枚举
+ */
 @Getter
 public enum BizExceptionEnum {
     SERVER_INTERNAL_ERROR(500, "服务器内部错误")
