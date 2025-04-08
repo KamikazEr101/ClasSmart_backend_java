@@ -6,6 +6,7 @@ import io.minio.*;
 import io.minio.errors.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,6 +24,12 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private MinioProperties properties;
 
+    /**
+     *
+     * @param file 图片文件
+     * @return 图片在minio中存储的url
+     */
+    @Transactional
     @Override
     public String upload(MultipartFile file) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         boolean bucketedExists = client.bucketExists(BucketExistsArgs.builder()
@@ -49,6 +56,11 @@ public class FileServiceImpl implements FileService {
         return String.join("/", properties.getEndPoint(), properties.getBucketName(), fileName);
     }
 
+    /**
+     * minio存储策略
+     * @param bucketName 桶名
+     * @return minio存储策略的json模型
+     */
     private String createBucketPolicyConfig(String bucketName) {
         return """
             {

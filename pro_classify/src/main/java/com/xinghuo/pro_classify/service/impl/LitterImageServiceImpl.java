@@ -8,6 +8,7 @@ import com.xinghuo.pro_classify.vo.PredictedLabelVO;
 import io.minio.errors.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class LitterImageServiceImpl implements LitterImageService {
      * @param file 图片文件
      * @return 模型预测结果
      */
+    @Transactional
     @Override
     public PredictedLabelVO uploadLitterImage(MultipartFile file) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         String imageUrl = fileService.upload(file);
@@ -48,6 +50,7 @@ public class LitterImageServiceImpl implements LitterImageService {
                 build();
     }
 
+    @Transactional
     @Override
     public void addFeedbackToImage(String feedback, Long imageId) {
         LitterImage litterImageById = litterImageMapper.getLitterImageById(imageId);

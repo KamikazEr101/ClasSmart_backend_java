@@ -34,3 +34,16 @@ minio:
   access-key: minioadmin
   secret-key: minioadmin
   bucket-name: litter
+
+# springdoc-openapi????
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.xinghuo.pro_classify.controller

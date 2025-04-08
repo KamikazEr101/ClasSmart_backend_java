@@ -1,12 +1,17 @@
 package com.xinghuo.pro_classify.common.result;
 
 import com.xinghuo.pro_classify.exception.BizExceptionEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+@Schema(description = "相应结果对象")
 @Data
 public class Result<T> {
+    @Schema(description = "相应状态码")
     private Integer code;
+    @Schema(description = "响应信息")
     private String msg;
+    @Schema(description = "响应数据")
     private T data;
 
     private Result(int code, String msg, T data) {
