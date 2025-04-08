@@ -3,17 +3,18 @@ package com.xinghuo.pro_classify.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Data;
 
-@Schema(description = "模型预测结果的视图对象")
-@Builder
+/**
+ * 用户反馈的模型
+ */
 @Data
-public class PredictedLabelVO {
-    @Schema(description = "预测结果")
+@Schema(description = "用户反馈的模型")
+public class FeedbackVO {
+    @Schema(description = "反馈信息")
     @NotBlank
-    private String predictedLabel;
-    @Schema(description = "分类的图片id")
+    private String feedbackLabel;
+    @Schema(description = "对应的垃圾图片id")
     @NotNull
     private Long imageId;
 }
