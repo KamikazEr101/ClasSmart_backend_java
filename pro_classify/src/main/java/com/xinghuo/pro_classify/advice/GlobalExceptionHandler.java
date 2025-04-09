@@ -1,6 +1,6 @@
 package com.xinghuo.pro_classify.advice;
 
-import com.xinghuo.pro_classify.common.result.Result;
+import com.xinghuo.pro_classify.common.Result;
 import com.xinghuo.pro_classify.exception.BizException;
 import com.xinghuo.pro_classify.exception.BizExceptionEnum;
 import lombok.extern.slf4j.Slf4j;

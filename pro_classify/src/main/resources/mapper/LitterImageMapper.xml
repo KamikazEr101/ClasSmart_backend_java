@@ -3,8 +3,8 @@
 <mapper namespace="com.xinghuo.pro_classify.mapper.LitterImageMapper">
     <insert id="saveLitterImage" useGeneratedKeys="true" keyProperty="id">
         insert into
-        t_litter_image(content_type, url, predicted_label, feedback_label)
-        values(#{literImage.contentType}, #{literImage.url}, #{literImage.predictedLabel}, #{literImage.feedbackLabel})
+        t_litter_image(content_type, url, predicted_label, feedback_label, huge_type)
+        values(#{litterImage.contentType}, #{litterImage.url}, #{litterImage.predictedLabel}, #{litterImage.feedbackLabel}, #{litterImage.hugeType})
     </insert>
     <update id="updateLitterImage">
         update
@@ -22,22 +22,41 @@
             <if test="litterImage.feedbackLabel != null and litterImage.feedbackLabel != '' ">
                 feedback_label = #{litterImage.feedbackLabel},
             </if>
+            <if test="litterImage.hugeType != null and litterImage.hugeType != '' ">
+                huge_type = #{litterImage.hugeType},
+            </if>
         </set>
         where id=#{litterImage.id}
     </update>
+
     <delete id="deleteLitterImageById">
         delete from
         t_litter_image
         where id=#{id}
     </delete>
+    <delete id="deleteBatchLitterImage">
+        <foreach collection="litterImageList" item="image" separator=";">
+            delete from t_litter_image where id=#{image.id}
+        </foreach>
+    </delete>
 
     <select id="getLitterImageById" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
-        select id, content_type, url, predicted_label, feedback_label
+        select id, content_type, url, predicted_label, feedback_label, upload_time, huge_type
         from t_litter_image
         where id=#{id}
     </select>
     <select id="getLitterImageList" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
-        select id, content_type, url, predicted_label, feedback_label
+        select id, content_type, url, predicted_label, feedback_label, upload_time, huge_type
         from t_litter_image
+    </select>
+    <select id="getUselessLitterImageList" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
+        select id, content_type, url, predicted_label, feedback_label, upload_time, huge_type
+        from t_litter_image
+        where
+            (predicted_label is null)
+           or
+            (predicted_label = feedback_label)
+           or
+            (upload_time &lt; DATE_SUB(NOW(), interval #{hourCount} hour) and feedback_label is null);
     </select>
 </mapper>

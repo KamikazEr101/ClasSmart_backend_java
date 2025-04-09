@@ -7,7 +7,8 @@ import lombok.Getter;
  */
 @Getter
 public enum BizExceptionEnum {
-    SERVER_INTERNAL_ERROR(500, "服务器内部错误")
+    SERVER_INTERNAL_ERROR(500, "服务器内部错误"),
+    MODEL_PROCESS_ERROR(700, "模型生成错误")
     ;
 
     private final Integer code;

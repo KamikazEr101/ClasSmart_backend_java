@@ -9,9 +9,11 @@ import java.util.List;
  * 垃圾图像Mapper层
  */
 public interface LitterImageMapper {
-    public LitterImage getLitterImageById(@Param("id") Long id);
-    public List<LitterImage> getLitterImageList();
-    public void deleteLitterImageById(@Param("id") Long id);
-    public void saveLitterImage(@Param("litterImage") LitterImage litterImage);
-    public void updateLitterImage(@Param("litterImage") LitterImage litterImage);
+    LitterImage getLitterImageById(@Param("id") Long id);
+    List<LitterImage> getLitterImageList();
+    List<LitterImage> getUselessLitterImageList(@Param("hourCount") Long hourCount);
+    void deleteLitterImageById(@Param("id") Long id);
+    void deleteBatchLitterImage(@Param("litterImageList") List<LitterImage> litterImageList);
+    void saveLitterImage(@Param("litterImage") LitterImage litterImage);
+    void updateLitterImage(@Param("litterImage") LitterImage litterImage);
 }

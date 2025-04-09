@@ -1,22 +1,31 @@
 spring:
   application:
     name: pro_classify
-  datasource:
-    name: litter_classify
-    url: jdbc:mysql://localhost:3306/litter_classify
+  datasource: # 数据库配置
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/litter_classify?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2b8&allowMultiQueries=true
     username: root
     password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 60000
+      idle-timeout: 500000
+      max-lifetime: 540000
+      maximum-pool-size: 12
+      minimum-idle: 10
+      pool-name: SPHHikariPool
   servlet:
     multipart:
-      max-file-size: 50MB
+      max-file-size: 50MB # 传输文件大小配置
 
+# mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/**.xml
   configuration:
     map-underscore-to-camel-case: true
     lazy-loading-enabled: true
 
+# 日志配置
 logging:
   level:
     com:
@@ -26,9 +35,12 @@ logging:
   file:
     name: lc.log
     path: /log
+
+# java后端端口
 server:
   port: 8080
 
+# minio图片存储配置
 minio:
   endpoint: http://192.168.230.101:9000
   access-key: minioadmin
@@ -47,3 +59,9 @@ springdoc:
     - group: 'default'
       paths-to-match: '/**'
       packages-to-scan: com.xinghuo.pro_classify.controller
+
+# python后端接口url
+python:
+  endpoint: http://localhost:8000
+  request-path: /predict
+
