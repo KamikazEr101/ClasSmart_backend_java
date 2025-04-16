@@ -17,6 +17,11 @@ spring:
   servlet:
     multipart:
       max-file-size: 50MB # 传输文件大小配置
+  data:
+    redis:
+      host: 192.168.230.101
+      port: 6379
+      database: 0
 
 # mybatis配置
 mybatis:
@@ -33,8 +38,7 @@ logging:
         pro_classify:
           mapper: debug
   file:
-    name: lc.log
-    path: /log
+    name: lcsys.log
 
 # java后端端口
 server:
@@ -42,7 +46,7 @@ server:
 
 # minio图片存储配置
 minio:
-  endpoint: http://192.168.230.101:9000
+  endpoint: http://192.168.230.101:9000 #TODO
   access-key: minioadmin
   secret-key: minioadmin
   bucket-name: litter
@@ -63,5 +67,12 @@ springdoc:
 # python后端接口url
 python:
   endpoint: http://localhost:8000
-  request-path: /predict
+  classify-path: /predict
+  retraining-path: /startTraining
 
+# 限流的参数
+limit:
+  ip-permits-per-second: 10 # 单个IP每秒最多的访问限制次数
+  blacklist-duration: 36000 # IP拉黑时长(单位：秒)
+  permits-per-second: 20 # 全局每秒最多的访问限制次数
+  timeout: 500 # 获取令牌最大等待时间(单位毫秒)

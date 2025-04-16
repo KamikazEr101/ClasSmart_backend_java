@@ -2,6 +2,7 @@ package com.xinghuo.pro_classify.service;
 
 import com.xinghuo.pro_classify.dto.response.PredictedLabelResponseDTO;
 import io.minio.errors.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 public interface LitterImageService {
     PredictedLabelResponseDTO uploadLitterImage(MultipartFile file) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
-    void addFeedbackToImage(String feedback, Long imageId);
+    void addFeedbackToImage(String feedback, Long imageId) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
     void removeUselessImage() throws Exception;
+    void zipDatasetAndRetrain() throws Exception;
 }

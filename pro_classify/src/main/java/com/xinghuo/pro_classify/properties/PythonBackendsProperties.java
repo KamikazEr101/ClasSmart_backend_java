@@ -10,5 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "python")
 public class PythonBackendsProperties {
     private String endPoint;
-    private String requestPath;
+    private String classifyPath;
+    private String retrainingPath;
 }

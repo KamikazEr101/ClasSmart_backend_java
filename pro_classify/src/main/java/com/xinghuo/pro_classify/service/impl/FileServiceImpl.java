@@ -87,16 +87,16 @@ public class FileServiceImpl implements FileService {
         // 从URL中提取对象名称
         // URL格式: endpoint/bucketName/objectName
         String objectName = extractObjectNameFromUrl(fileUrl);
-        log.info("Deleting object from minio: {}", objectName);
+        log.info("正在从Minio中删除文件 {}", objectName);
 
         if (objectName != null) {
             client.removeObject(RemoveObjectArgs.builder()
                     .bucket(properties.getBucketName())
                     .object(objectName)
                     .build());
-            log.info("Successfully deleted object from minio: {}", objectName);
+            log.info("成功从Minio中删除文件 {}", objectName);
         } else {
-            log.error("File to be deleted in minio does not exist: {}", objectName);
+            log.error("从Minio中删除文件失败, 原因: 响应文件不存在 {}", fileUrl);
         }
     }
 
@@ -111,13 +111,43 @@ public class FileServiceImpl implements FileService {
             return null;
         }
 
-        // 移除endpoint和bucketName部分
         String endpointWithBucket = String.join("/", properties.getEndPoint(), properties.getBucketName());
         if (fileUrl.startsWith(endpointWithBucket)) {
-            // +1 是为了去掉开头的斜杠
             return fileUrl.substring(endpointWithBucket.length() + 1);
         }
 
         return null;
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param objectName 对象名称
+     * @return 文件输入流
+     */
+    @Override
+    public InputStream download(String objectName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        log.info("从Minio中下载文件 {}", objectName);
+        return client.getObject(GetObjectArgs.builder()
+                .bucket(properties.getBucketName())
+                .object(objectName)
+                .build());
+    }
+
+    /**
+     * 从URL获取对象名并下载文件
+     *
+     * @param fileUrl 文件的完整URL
+     * @return 文件输入流
+     */
+    @Override
+    public InputStream downloadByUrl(String fileUrl) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        String objectName = extractObjectNameFromUrl(fileUrl);
+        if (objectName != null) {
+            return download(objectName);
+        } else {
+            log.error("从Minio中下载文件失败, 原因: 无效的URL: {}", fileUrl);
+            throw new IllegalArgumentException("Invalid file URL: " + fileUrl);
+        }
     }
 }

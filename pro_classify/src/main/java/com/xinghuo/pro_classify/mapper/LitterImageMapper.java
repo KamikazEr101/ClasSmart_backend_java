@@ -12,8 +12,10 @@ public interface LitterImageMapper {
     LitterImage getLitterImageById(@Param("id") Long id);
     List<LitterImage> getLitterImageList();
     List<LitterImage> getUselessLitterImageList(@Param("hourCount") Long hourCount);
+    List<LitterImage> getLitterImageListWithFeedback();
     void deleteLitterImageById(@Param("id") Long id);
-    void deleteBatchLitterImage(@Param("litterImageList") List<LitterImage> litterImageList);
+    void deleteBatchLitterImageByIds(@Param("litterImageList") List<LitterImage> litterImageList);
     void saveLitterImage(@Param("litterImage") LitterImage litterImage);
     void updateLitterImage(@Param("litterImage") LitterImage litterImage);
+
 }

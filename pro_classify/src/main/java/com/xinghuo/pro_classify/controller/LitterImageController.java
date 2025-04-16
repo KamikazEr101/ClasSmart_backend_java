@@ -1,15 +1,19 @@
 package com.xinghuo.pro_classify.controller;
 
+import com.xinghuo.pro_classify.annotation.Limit;
 import com.xinghuo.pro_classify.common.Result;
-import com.xinghuo.pro_classify.service.LitterImageService;
 import com.xinghuo.pro_classify.dto.request.FeedbackRequestDTO;
 import com.xinghuo.pro_classify.dto.response.PredictedLabelResponseDTO;
+import com.xinghuo.pro_classify.service.LitterImageService;
 import io.minio.errors.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -32,12 +36,9 @@ public class LitterImageController {
 
     @Operation(summary = "上传垃圾图片得到分类信息")
     @PostMapping("/upload")
+    @Limit(key = "/api/litter/upload")
     public Result<PredictedLabelResponseDTO> upload(@RequestBody MultipartFile litterImage) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        log.info("upload image...");
-
         PredictedLabelResponseDTO predictedLabelResponseDTO = litterImageService.uploadLitterImage(litterImage);
-
-        log.info("upload image complete.");
 
         return Result.ok(predictedLabelResponseDTO);
     }
@@ -45,13 +46,14 @@ public class LitterImageController {
 
     @Operation(summary = "用户反馈")
     @PostMapping("/feedback")
-    public Result<?> feedback(@RequestBody @Valid FeedbackRequestDTO feedbackRequestDTO) {
-        log.info("update feedback to image {} ...", feedbackRequestDTO.getImageId());
-
+    @Limit(key = "/api/litter/feedback")
+    public Result<?> feedback(@RequestBody @Valid FeedbackRequestDTO feedbackRequestDTO) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        log.info("正在向数据库中图片添加反馈信息 {}", feedbackRequestDTO.getImageId());
         litterImageService.addFeedbackToImage(feedbackRequestDTO.getFeedbackLabel(), feedbackRequestDTO.getImageId());
-
-        log.info("update feedback to image {} complete.", feedbackRequestDTO.getImageId());
+        log.info("成功向数据库中图片添加反馈信息 {}", feedbackRequestDTO.getImageId());
 
         return Result.ok();
     }
+
+
 }

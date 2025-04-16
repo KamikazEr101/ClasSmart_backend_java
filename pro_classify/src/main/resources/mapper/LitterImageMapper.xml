@@ -34,10 +34,18 @@
         t_litter_image
         where id=#{id}
     </delete>
-    <delete id="deleteBatchLitterImage">
-        <foreach collection="litterImageList" item="image" separator=";">
-            delete from t_litter_image where id=#{image.id}
-        </foreach>
+    <delete id="deleteBatchLitterImageByIds">
+    <choose>
+        <when test="litterImageList != null and litterImageList.size() > 0">
+            <foreach collection="litterImageList" item="image" separator=";">
+                delete from t_litter_image where id=#{image.id}
+            </foreach>
+        </when>
+        <otherwise>
+            delete from t_litter_image where id is null
+        </otherwise>
+    </choose>
+
     </delete>
 
     <select id="getLitterImageById" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
@@ -58,5 +66,10 @@
             (predicted_label = feedback_label)
            or
             (upload_time &lt; DATE_SUB(NOW(), interval #{hourCount} hour) and feedback_label is null);
+    </select>
+    <select id="getLitterImageListWithFeedback" resultType="com.xinghuo.pro_classify.pojo.LitterImage">
+        select id, content_type, url, predicted_label, feedback_label, upload_time, huge_type
+        from t_litter_image
+        where feedback_label is not null
     </select>
 </mapper>

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +27,7 @@ class ProClassifyApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println(System.getProperty("java.io.tmpdir"));
     }
 
 
@@ -43,7 +45,7 @@ class ProClassifyApplicationTests {
             );
         }
 
-        litterImageMapper.deleteBatchLitterImage(litterImages);
+        litterImageMapper.deleteBatchLitterImageByIds(litterImages);
     }
 
     @Test
@@ -59,6 +61,11 @@ class ProClassifyApplicationTests {
     @Test
     void testDeleteUseless() throws Exception {
         litterImageService.removeUselessImage();
+    }
+
+    @Test
+    void testZipDataset() throws Exception {
+        litterImageService.zipDatasetAndRetrain();
     }
 
 }

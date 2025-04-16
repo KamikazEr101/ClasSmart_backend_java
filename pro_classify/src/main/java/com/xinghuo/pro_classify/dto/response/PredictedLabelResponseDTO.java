@@ -6,10 +6,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Schema(description = "模型预测结果的视图对象")
 @Builder
 @Data
-public class PredictedLabelResponseDTO {
+public class PredictedLabelResponseDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Schema(description = "预测结果")
     @NotBlank
     private String predictedLabel;

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class LitterImage implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Schema(description = "垃圾id")
     private Long id;
     @Schema(description = "垃圾图片文件类型")
